@@ -1,0 +1,13 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "bb:npc",
+      "materials": { "default": "entity_alphatest" },
+      "textures": { "default": "textures/entity/bb_npc" },
+      "geometry": { "default": "geometry.bb_humanoid" },
+      "render_controllers": [ "controller.render.default" ],
+      "spawn_egg": { "base_color": "#8a4fd0", "overlay_color": "#f0d060" }
+    }
+  }
+}

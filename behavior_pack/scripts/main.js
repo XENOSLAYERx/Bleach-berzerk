@@ -36,7 +36,7 @@ import { onDeath as pvpOnDeath, clearDuel } from "./systems/pvp.js";
 
 // ui
 import { openRaceSelect } from "./ui/raceSelect.js";
-import { openMainMenu } from "./ui/menu.js";
+import { openMainMenu, openNpc } from "./ui/menu.js";
 
 // commands
 import { registerCommands } from "./commands/index.js";
@@ -83,6 +83,23 @@ world.afterEvents.itemUse.subscribe((ev) => {
   } else {
     openMainMenu(player);
   }
+});
+
+// ---------------------------------------------------------------------
+//  Walk-up NPC interaction (captains / mentors)
+// ---------------------------------------------------------------------
+world.afterEvents.playerInteractWithEntity.subscribe((ev) => {
+  const t = ev.target;
+  const p = ev.player;
+  if (!t || t.typeId !== "bb:npc" || !isCreated(p)) return;
+  let tags = [];
+  try {
+    tags = t.getTags();
+  } catch (e) {}
+  const role = tags.includes("bb_role_captain") ? "captain" : "sensei";
+  const sqTag = tags.find((x) => x.startsWith("bb_squad_"));
+  const squad = sqTag ? parseInt(sqTag.slice("bb_squad_".length), 10) : 0;
+  openNpc(p, role, squad);
 });
 
 // ---------------------------------------------------------------------

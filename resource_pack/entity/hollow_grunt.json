@@ -1,0 +1,13 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "bb:hollow_grunt",
+      "materials": { "default": "entity_alphatest" },
+      "textures": { "default": "textures/entity/bb_hollow" },
+      "geometry": { "default": "geometry.bb_humanoid" },
+      "render_controllers": [ "controller.render.default" ],
+      "spawn_egg": { "base_color": "#e8e8e0", "overlay_color": "#c02828" }
+    }
+  }
+}

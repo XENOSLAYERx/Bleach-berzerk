@@ -130,6 +130,32 @@ def gen_hollow_mask():
     return w, b
 
 
+def gen_humanoid(base, skin, accent, mask=False):
+    """64x64 humanoid skin matching bb_humanoid.geo.json UV layout."""
+    w = 64
+    b = [TRANSPARENT] * (w * w)
+    # base fill across the used atlas so every face samples a colour
+    rect(b, w, 0, 0, 63, 63, base)
+    # head atlas region (0,0)-(31,15)
+    rect(b, w, 0, 0, 31, 15, skin)
+    # head front face is uv (8,8)-(15,15)
+    if mask:
+        rect(b, w, 8, 8, 15, 15, (240, 240, 235, 255))  # bone mask
+        # eye holes
+        rect(b, w, 9, 10, 10, 12, (12, 12, 12, 255))
+        rect(b, w, 13, 10, 14, 12, (12, 12, 12, 255))
+        # red mask stripe
+        rect(b, w, 8, 8, 15, 8, (200, 40, 40, 255))
+        rect(b, w, 11, 9, 12, 14, (200, 40, 40, 255))
+    else:
+        # simple eyes
+        px(b, w, 10, 11, (30, 30, 40, 255))
+        px(b, w, 13, 11, (30, 30, 40, 255))
+    # accent sash across body atlas (16,16)-(39,31)
+    rect(b, w, 16, 22, 39, 24, accent)
+    return w, b
+
+
 def gen_pack_icon(rgb):
     w = 64
     b = blank(w, w)
@@ -158,6 +184,17 @@ def main():
         w, buf = fn()
         write_png(os.path.join(ROOT, "resource_pack", "textures", "items", f"{name}.png"), w, w, buf)
         print("item texture:", name)
+
+    # entity textures
+    entities = {
+        # NPC: black shihakusho, skin face, white sash
+        "bb_npc": gen_humanoid((32, 32, 40, 255), (224, 172, 128, 255), (235, 235, 235, 255), mask=False),
+        # Hollow: bone-white body with a red-striped mask
+        "bb_hollow": gen_humanoid((232, 232, 226, 255), (232, 232, 226, 255), (200, 40, 40, 255), mask=True),
+    }
+    for name, (w2, buf2) in entities.items():
+        write_png(os.path.join(ROOT, "resource_pack", "textures", "entity", f"{name}.png"), w2, w2, buf2)
+        print("entity texture:", name)
 
     w, buf = gen_pack_icon((120, 60, 180))
     write_png(os.path.join(ROOT, "resource_pack", "pack_icon.png"), w, w, buf)

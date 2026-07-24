@@ -37,6 +37,9 @@ consoles and Bedrock servers. Inspired by Dragon Block C / Naruto C / Bleach.
 | **Ranked PvP** — challenge duels, arena teleport, rating & 6 ranks (Bronze→Legend) | ✅ |
 | **Endgame titles** (Soul King, Captain Commander, Strongest Espada, Quincy King…) with a selector | ✅ |
 | **Schrift signature passives** per letter (Quincy) | ✅ |
+| **Custom entities** — walk-up NPCs (mentors + squad captains) & a custom Hollow mob, with hand-authored geometry, textures & spawn eggs | ✅ |
+| **Walk-up NPC interaction** — tap a captain to enlist / open missions; mentors open quests/missions/training | ✅ |
+| **Hollow spawn rules** — custom Hollows spawn at night | ✅ |
 | Touch menu: cast, loadout, transform, stats, training, flight, squad, missions, quests, travel, PvP, titles, profile | ✅ |
 
 **Design intent:** the engine is data-driven, so extending it is *filling in
@@ -115,6 +118,8 @@ Map-makers can also use `/scriptevent bb:menu`, `/scriptevent bb:boss aizen`, et
 behavior_pack/
   manifest.json
   items/                 custom item definitions (Spirit Focus, Asauchi, …)
+  entities/              custom entities (bb:npc, bb:hollow_grunt)
+  spawn_rules/           night-spawning Hollows
   scripts/
     main.js              entry: wires events + tick loops
     config.js            all tuning constants & dynamic-property keys
@@ -132,8 +137,11 @@ behavior_pack/
     commands/            chat + scriptevent command interface
 resource_pack/
   manifest.json
-  textures/items/*.png   generated icons
-  texts/                 lang + item names
+  entity/                client render defs for custom entities
+  models/entity/         bb_humanoid.geo.json (shared geometry)
+  textures/items/*.png   generated item icons
+  textures/entity/*.png  generated NPC / Hollow skins
+  texts/                 lang + item/entity names
 tools/
   gen_textures.py        regenerate textures (no Pillow needed)
   build.py               package -> dist/BleachBerzerk.mcaddon
@@ -160,29 +168,30 @@ Zanpakutō element is one row in `data/elements.js`; a new boss is one row in
 
 ---
 
-## Roadmap (remaining work)
-The gameplay systems from the design are all in. What's left is mostly **art
-and hand-authored world-building**, which the data-driven engine is ready for:
-- **Custom entity models/animations** for bosses & Resurrección forms (they
-  currently reskin vanilla mobs so the pack works out of the box). This needs
-  `.geo.json` geometry + animations + a Resource-Pack client-entity per model.
-- **Quest-giver / captain NPC entities** you can walk up to (the questlines,
-  squads, missions and travel all work today through the menu; NPCs would be a
-  flavor layer on top).
-- **Hand-built world zones** — the travel hub auto-builds simple landmark
-  arenas; replacing them with detailed Karakura/Seireitei/Hueco Mundo/
-  Wandenreich builds (structure files) is a pure content task.
-- More **per-letter Schrift signature mechanics** beyond the passive buffs
-  (e.g. The Almighty's foresight, The Miracle's comeback) as special-case handlers.
+## Roadmap (remaining polish)
+Every system in the design is implemented and the custom-entity pipeline is now
+proven (geometry → texture → client entity → behavior → spawn/interaction). The
+remaining work is incremental art & content that plugs into what's already here:
+- **More custom models with animations** — the shared `bb_humanoid` geometry
+  drives NPCs and Hollows today; bosses & Resurrección forms still reskin vanilla
+  mobs. Adding per-boss `.geo.json` + animation controllers follows the same
+  pattern in `resource_pack/models/entity` + `resource_pack/entity`.
+- **Detailed hand-built zones** — the travel hub auto-builds landmark arenas and
+  populates them with NPCs; swapping in structure-file cities is pure content.
+- **Deeper per-letter Schrift mechanics** beyond passive buffs (e.g. The
+  Almighty's foresight, The Miracle's comeback) as special-case handlers.
 
 ---
 
 ## Constraints & honesty
-This is a **complete, runnable foundation** covering every core system in the
-design, with broad content across all five races. It intentionally reskins
-vanilla mobs for bosses and uses level-gated unlocks in place of full NPC
-questlines so it works the moment you import it — those are the two biggest
-"art & world-building" expansions, and both slot into the existing data tables
-without new engine code. Reiatsu-fly is a mobile-appropriate hover, not
-creative flight. Some script-API calls are version-sensitive and are wrapped in
-defensive helpers (`util.js`) so they degrade instead of crashing.
+This is a **complete, runnable RPG** covering every system in the design, with
+broad content across all five races, custom items and custom entities (NPCs +
+a Hollow mob with hand-authored geometry). **Bosses still reskin vanilla mobs**
+(buffed & multi-phase) rather than shipping unique models — that's the main
+remaining art task, and the custom-entity pipeline here is the template for it.
+Reiatsu-fly is a mobile-appropriate hover, not creative flight. Custom entities,
+items and the Script API all require the world's **Beta APIs** + **Holiday
+Creator Features** toggles. Some script-API calls are version-sensitive and are
+wrapped in defensive helpers (`util.js`) so they degrade instead of crashing;
+if a custom entity is rejected by an older version, the rest of the mod is
+unaffected (NPC content also remains reachable from the menu).

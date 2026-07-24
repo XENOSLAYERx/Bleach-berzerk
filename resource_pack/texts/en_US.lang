@@ -6,3 +6,8 @@ item.bb:asauchi=Asauchi
 item.bb:quincy_cross=Quincy Cross
 item.bb:fullbring_object=Fullbring Object
 item.bb:hollow_mask=Hollow Mask Fragment
+
+entity.bb:npc.name=Spirit
+entity.bb:hollow_grunt.name=Hollow
+item.spawn_egg.entity.bb:npc.name=Spawn Spirit (NPC)
+item.spawn_egg.entity.bb:hollow_grunt.name=Spawn Hollow

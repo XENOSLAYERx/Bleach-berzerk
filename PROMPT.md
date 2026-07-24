@@ -62,7 +62,10 @@ Script API), *not* a Java Forge/Fabric mod.
 6. ✅ Gotei 13 squads + factions, mission board, race questlines (with story
    bosses), world-travel hub with buildable zones, ranked PvP duels, endgame
    titles, Schrift passives.
-7. ⏳ Remaining: custom entity models/animations, walk-up NPC entities, and
-   detailed hand-built zones — art/content that slots into the existing engine.
+7. ✅ Custom entities: walk-up NPCs (mentors + squad captains) and a custom
+   Hollow mob — hand-authored geometry, textures, spawn eggs, night spawn rules,
+   and tap-to-open interaction. Zones auto-populate with NPCs.
+8. ⏳ Remaining polish: per-boss custom models + animations, structure-file
+   cities, deeper per-letter Schrift mechanics — content on the proven pipeline.
 
 See `README.md` for install & commands.

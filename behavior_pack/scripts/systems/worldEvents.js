@@ -14,8 +14,8 @@ const MOB_CAP = 24; // never keep more than this many event mobs alive at once
 
 // ---- dynamic events --------------------------------------------------
 const EVENTS = {
-  hollow_invasion: { name: "Hollow Invasion", mobs: ["minecraft:zombie", "minecraft:husk"], count: 8, xp: 200 },
-  menos_attack: { name: "Menos Attack", mobs: ["minecraft:wither_skeleton"], count: 4, xp: 300, boss: "grand_fisher" },
+  hollow_invasion: { name: "Hollow Invasion", mobs: ["bb:hollow_grunt", "minecraft:zombie", "minecraft:husk"], count: 8, xp: 200 },
+  menos_attack: { name: "Menos Attack", mobs: ["bb:hollow_grunt", "minecraft:wither_skeleton"], count: 4, xp: 300, boss: "grand_fisher" },
   soul_society_emergency: { name: "Soul Society Emergency", mobs: ["minecraft:vindicator"], count: 6, xp: 350 },
   espada_assault: { name: "Espada Assault", boss: "grimmjow", mobs: ["minecraft:piglin_brute"], count: 3, xp: 600 },
   sternritter_raid: { name: "Sternritter Raid", mobs: ["minecraft:pillager", "minecraft:vindicator"], count: 6, xp: 650 },
@@ -86,7 +86,7 @@ const RAIDS = {
     name: "Hueco Mundo Raid",
     waves: 50,
     mobBuilder: (wave) => ({
-      mobs: ["minecraft:zombie", "minecraft:husk", "minecraft:wither_skeleton"],
+      mobs: ["bb:hollow_grunt", "minecraft:husk", "minecraft:wither_skeleton"],
       count: Math.min(MOB_CAP, 3 + Math.floor(wave / 3)),
       boss: wave % 10 === 0 ? "grimmjow" : null,
     }),

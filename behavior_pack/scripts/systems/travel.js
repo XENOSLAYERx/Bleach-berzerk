@@ -59,6 +59,36 @@ export const ZONES = {
 
 export const ZONE_IDS = Object.keys(ZONES);
 
+// NPCs spawned once when each zone is first built.
+const ZONE_NPCS = {
+  karakura: [{ role: "sensei", name: "§bUrahara", off: { x: 0, z: 4 } }],
+  soul_society: [
+    { role: "captain", squad: 1, name: "§cCapt. Yamamoto §7[Sq.1]", off: { x: -4, z: 2 } },
+    { role: "captain", squad: 4, name: "§aCapt. Unohana §7[Sq.4]", off: { x: 0, z: 2 } },
+    { role: "captain", squad: 11, name: "§4Capt. Zaraki §7[Sq.11]", off: { x: 4, z: 2 } },
+    { role: "sensei", name: "§bSquad Registrar", off: { x: 0, z: 6 } },
+  ],
+  hueco_mundo: [{ role: "sensei", name: "§8Hollow Guide", off: { x: 0, z: 4 } }],
+  wandenreich: [{ role: "sensei", name: "§eSternritter Herald", off: { x: 0, z: 4 } }],
+  arena: [],
+};
+
+function spawnZoneNpcs(zoneId, anchor) {
+  const specs = ZONE_NPCS[zoneId] || [];
+  const dim = world.getDimension("overworld");
+  for (const s of specs) {
+    try {
+      const e = dim.spawnEntity("bb:npc", { x: anchor.x + s.off.x + 0.5, y: anchor.y, z: anchor.z + s.off.z + 0.5 });
+      e.nameTag = s.name;
+      e.addTag("bb_zone_npc");
+      e.addTag(`bb_role_${s.role}`);
+      if (s.squad) e.addTag(`bb_squad_${s.squad}`);
+    } catch (err) {
+      /* custom entity unavailable — zone still works via the menu */
+    }
+  }
+}
+
 function builtList() {
   try {
     return JSON.parse(getProp(world, WK.zonesBuilt, "[]"));
@@ -74,6 +104,7 @@ export function buildZone(zoneId) {
   if (built.includes(zoneId)) return;
   const dim = world.getDimension("overworld");
   for (const c of z.build(z.anchor)) cmd(dim, c);
+  spawnZoneNpcs(zoneId, z.anchor);
   built.push(zoneId);
   setProp(world, WK.zonesBuilt, JSON.stringify(built));
 }

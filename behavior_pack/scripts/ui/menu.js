@@ -183,6 +183,41 @@ async function openProfile(player) {
   await showForm(player, menu);
 }
 
+// ---- NPC interaction dispatcher (walk-up captains / mentors) ---------
+export async function openNpc(player, role, squadId) {
+  if (role === "captain" && SQUADS[squadId]) {
+    const s = SQUADS[squadId];
+    const menu = new ActionFormData()
+      .title(`§cCaptain — ${s.captain}`)
+      .body(`§7${s.name} • ${s.specialty}\n§7Buff: keeps you strong in the field.`)
+      .button(`§aEnlist in ${s.name}`)
+      .button("§e✎ Mission Board")
+      .button("§8Close");
+    const res = await showForm(player, menu);
+    if (!res || res.canceled) return;
+    if (res.selection === 0) {
+      const r = joinSquad(player, squadId);
+      if (!r.ok) actionBar(player, `§c${r.reason}`);
+    } else if (res.selection === 1) {
+      openMissions(player);
+    }
+    return;
+  }
+  // Mentor / sensei
+  const menu = new ActionFormData()
+    .title("§bSpirit Mentor")
+    .body("§7How can I guide you?")
+    .button("§6❂ Questline")
+    .button("§e✎ Missions")
+    .button("§d❁ Training")
+    .button("§8Close");
+  const res = await showForm(player, menu);
+  if (!res || res.canceled) return;
+  if (res.selection === 0) openQuests(player);
+  else if (res.selection === 1) openMissions(player);
+  else if (res.selection === 2) openTrain(player);
+}
+
 // ---- squad / faction -------------------------------------------------
 async function openSquad(player) {
   const faction = getFaction(player);
