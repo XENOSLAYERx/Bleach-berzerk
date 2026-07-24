@@ -10,6 +10,21 @@ consoles and Bedrock servers. Inspired by Dragon Block C / Naruto C / Bleach.
 
 ---
 
+## ⬇ Download
+
+**[Download BleachBerzerk.mcaddon](https://github.com/XENOSLAYERx/Bleach-berzerk/raw/claude/minecraft-bleach-rpg-mod-35k787/BleachBerzerk.mcaddon)**
+&nbsp;·&nbsp; ~72 KB &nbsp;·&nbsp; [browse / download page](https://github.com/XENOSLAYERx/Bleach-berzerk/blob/claude/minecraft-bleach-rpg-mod-35k787/BleachBerzerk.mcaddon)
+
+**On mobile:** tap the link, download the file, then **open it** — Minecraft
+imports both packs automatically. Create a world, enable *Bleach: Berzerk*
+under Behavior & Resource Packs, and turn on **Beta APIs / Additional Modding
+Capabilities** + **Holiday Creator Features**. Full steps in [Install](#install-mobile).
+
+*(The `.mcaddon` is prebuilt from this repo; rebuild anytime with
+`python3 tools/build.py`.)*
+
+---
+
 ## What's in the box
 
 | System | Status |
