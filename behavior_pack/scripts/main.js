@@ -33,6 +33,7 @@ import { check as questCheck, onBoss as questOnBoss } from "./systems/quests.js"
 import { checkTitles, getActiveTitle } from "./systems/titles.js";
 import { applyPassive as schriftPassive } from "./systems/schriftPassive.js";
 import { onDeath as pvpOnDeath, clearDuel } from "./systems/pvp.js";
+import { onHurt as schriftOnHurt, onDealt as schriftOnDealt } from "./systems/schriftSpecial.js";
 
 // ui
 import { openRaceSelect } from "./ui/raceSelect.js";
@@ -136,6 +137,20 @@ world.afterEvents.entityDie.subscribe((ev) => {
   if (getRace(killer) === RACES.HOLLOW) {
     const soul = dead.typeId === "minecraft:player" ? 15 : 4;
     addSouls(killer, soul);
+  }
+});
+
+// ---------------------------------------------------------------------
+//  Schrift reactive mechanics (Quincy)
+// ---------------------------------------------------------------------
+world.afterEvents.entityHurt.subscribe((ev) => {
+  const hurt = ev.hurtEntity;
+  const dealer = ev.damageSource && ev.damageSource.damagingEntity;
+  if (hurt && hurt.typeId === "minecraft:player" && isCreated(hurt)) {
+    schriftOnHurt(hurt, dealer);
+  }
+  if (dealer && dealer.typeId === "minecraft:player" && isCreated(dealer)) {
+    schriftOnDealt(dealer, hurt, ev.damage);
   }
 });
 

@@ -15,7 +15,7 @@ const MOB_CAP = 24; // never keep more than this many event mobs alive at once
 // ---- dynamic events --------------------------------------------------
 const EVENTS = {
   hollow_invasion: { name: "Hollow Invasion", mobs: ["bb:hollow_grunt", "minecraft:zombie", "minecraft:husk"], count: 8, xp: 200 },
-  menos_attack: { name: "Menos Attack", mobs: ["bb:hollow_grunt", "minecraft:wither_skeleton"], count: 4, xp: 300, boss: "grand_fisher" },
+  menos_attack: { name: "Menos Attack", mobs: ["bb:menos", "bb:hollow_grunt"], count: 4, xp: 300 },
   soul_society_emergency: { name: "Soul Society Emergency", mobs: ["minecraft:vindicator"], count: 6, xp: 350 },
   espada_assault: { name: "Espada Assault", boss: "grimmjow", mobs: ["minecraft:piglin_brute"], count: 3, xp: 600 },
   sternritter_raid: { name: "Sternritter Raid", mobs: ["minecraft:pillager", "minecraft:vindicator"], count: 6, xp: 650 },

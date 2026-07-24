@@ -37,9 +37,11 @@ consoles and Bedrock servers. Inspired by Dragon Block C / Naruto C / Bleach.
 | **Ranked PvP** — challenge duels, arena teleport, rating & 6 ranks (Bronze→Legend) | ✅ |
 | **Endgame titles** (Soul King, Captain Commander, Strongest Espada, Quincy King…) with a selector | ✅ |
 | **Schrift signature passives** per letter (Quincy) | ✅ |
-| **Custom entities** — walk-up NPCs (mentors + squad captains) & a custom Hollow mob, with hand-authored geometry, textures & spawn eggs | ✅ |
+| **Custom entities** — walk-up NPCs (mentors + squad captains), a custom Hollow, and a giant scaled **Menos**, with hand-authored geometry, textures & spawn eggs | ✅ |
+| **Entity animations** — shared idle/walk animation + controller drive all custom entities | ✅ |
 | **Walk-up NPC interaction** — tap a captain to enlist / open missions; mentors open quests/missions/training | ✅ |
 | **Hollow spawn rules** — custom Hollows spawn at night | ✅ |
+| **Schrift special mechanics** — reactive per-letter effects (The Almighty foresight, The Miracle comeback, The Fear recoil, The Deathdealer lifesteal, …) | ✅ |
 | Touch menu: cast, loadout, transform, stats, training, flight, squad, missions, quests, travel, PvP, titles, profile | ✅ |
 
 **Design intent:** the engine is data-driven, so extending it is *filling in
@@ -137,10 +139,12 @@ behavior_pack/
     commands/            chat + scriptevent command interface
 resource_pack/
   manifest.json
-  entity/                client render defs for custom entities
+  entity/                client render defs (npc, hollow_grunt, menos)
   models/entity/         bb_humanoid.geo.json (shared geometry)
+  animations/            idle / walk animations
+  animation_controllers/ move controller (idle<->walk)
   textures/items/*.png   generated item icons
-  textures/entity/*.png  generated NPC / Hollow skins
+  textures/entity/*.png  generated NPC / Hollow / Menos skins
   texts/                 lang + item/entity names
 tools/
   gen_textures.py        regenerate textures (no Pillow needed)
@@ -172,14 +176,14 @@ Zanpakutō element is one row in `data/elements.js`; a new boss is one row in
 Every system in the design is implemented and the custom-entity pipeline is now
 proven (geometry → texture → client entity → behavior → spawn/interaction). The
 remaining work is incremental art & content that plugs into what's already here:
-- **More custom models with animations** — the shared `bb_humanoid` geometry
-  drives NPCs and Hollows today; bosses & Resurrección forms still reskin vanilla
-  mobs. Adding per-boss `.geo.json` + animation controllers follows the same
-  pattern in `resource_pack/models/entity` + `resource_pack/entity`.
-- **Detailed hand-built zones** — the travel hub auto-builds landmark arenas and
-  populates them with NPCs; swapping in structure-file cities is pure content.
-- **Deeper per-letter Schrift mechanics** beyond passive buffs (e.g. The
-  Almighty's foresight, The Miracle's comeback) as special-case handlers.
+- **Per-boss custom models** — the shared, animated `bb_humanoid` geometry drives
+  NPCs, Hollows and the Menos today; the 18 named **bosses** still reskin vanilla
+  mobs. Giving each a unique `.geo.json` follows the exact pattern already in
+  `resource_pack/models/entity` + `resource_pack/entity` + `resource_pack/animations`.
+- **Detailed hand-built zones** — the travel hub auto-builds lit landmark arenas
+  and populates them with NPCs; swapping in structure-file cities is pure content.
+- **Even more Schrift depth** — 7 letters have reactive mechanics today; the other
+  19 currently use passive buffs and could each get a signature handler.
 
 ---
 

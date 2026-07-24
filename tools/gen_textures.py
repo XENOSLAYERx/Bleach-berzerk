@@ -191,6 +191,8 @@ def main():
         "bb_npc": gen_humanoid((32, 32, 40, 255), (224, 172, 128, 255), (235, 235, 235, 255), mask=False),
         # Hollow: bone-white body with a red-striped mask
         "bb_hollow": gen_humanoid((232, 232, 226, 255), (232, 232, 226, 255), (200, 40, 40, 255), mask=True),
+        # Menos: black cloak, bone mask
+        "bb_menos": gen_humanoid((16, 16, 24, 255), (16, 16, 24, 255), (235, 235, 235, 255), mask=True),
     }
     for name, (w2, buf2) in entities.items():
         write_png(os.path.join(ROOT, "resource_pack", "textures", "entity", f"{name}.png"), w2, w2, buf2)

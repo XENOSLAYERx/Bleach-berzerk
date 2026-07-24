@@ -33,6 +33,7 @@ const mods = [
   "systems/pvp.js",
   "systems/titles.js",
   "systems/schriftPassive.js",
+  "systems/schriftSpecial.js",
   "ui/forms.js",
   "ui/menu.js",
   "ui/raceSelect.js",

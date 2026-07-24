@@ -104,9 +104,19 @@ export function buildZone(zoneId) {
   if (built.includes(zoneId)) return;
   const dim = world.getDimension("overworld");
   for (const c of z.build(z.anchor)) cmd(dim, c);
+  lightZone(dim, z.anchor);
   spawnZoneNpcs(zoneId, z.anchor);
   built.push(zoneId);
   setProp(world, WK.zonesBuilt, JSON.stringify(built));
+}
+
+/** Place lighting so a zone is usable (and doesn't spawn mobs) at night. */
+function lightZone(dim, a) {
+  const corners = [
+    [a.x - 8, a.z - 8], [a.x + 8, a.z - 8], [a.x - 8, a.z + 8], [a.x + 8, a.z + 8],
+  ];
+  for (const [x, z] of corners) cmd(dim, `setblock ${x} ${a.y + 4} ${z} sea_lantern`);
+  cmd(dim, `setblock ${a.x} ${a.y + 6} ${a.z} glowstone`);
 }
 
 export function travelTo(player, zoneId) {

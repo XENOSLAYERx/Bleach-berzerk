@@ -6,7 +6,13 @@
       "materials": { "default": "entity_alphatest" },
       "textures": { "default": "textures/entity/bb_hollow" },
       "geometry": { "default": "geometry.bb_humanoid" },
-      "render_controllers": [ "controller.render.default" ],
+      "animations": {
+        "idle": "animation.bb_humanoid.idle",
+        "walk": "animation.bb_humanoid.walk",
+        "move": "controller.animation.bb_humanoid.move"
+      },
+      "scripts": { "animate": ["move"] },
+      "render_controllers": ["controller.render.default"],
       "spawn_egg": { "base_color": "#e8e8e0", "overlay_color": "#c02828" }
     }
   }
