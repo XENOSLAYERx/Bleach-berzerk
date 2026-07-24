@@ -16,13 +16,13 @@ export const BOSSES = {
   renji: { name: "Renji Abarai", tier: 2, entity: "minecraft:piglin_brute", hp: 40, res: 2, str: 2, spd: 1, score: 220, xp: 700, phases: 2, drops: [{ item: "minecraft:iron_ingot", count: 8 }, { item: "minecraft:diamond", count: 1 }] },
   kenpachi: { name: "Kenpachi Zaraki", tier: 2, entity: "minecraft:vindicator", hp: 55, res: 2, str: 3, spd: 1, score: 300, xp: 900, phases: 3, drops: [{ item: "minecraft:diamond", count: 3 }] },
   byakuya: { name: "Byakuya Kuchiki", tier: 2, entity: "minecraft:wither_skeleton", hp: 45, res: 2, str: 2, spd: 2, score: 280, xp: 850, phases: 2, drops: [{ item: "minecraft:diamond", count: 2 }, { item: "minecraft:pink_petals", count: 4 }] },
-  grimmjow: { name: "Grimmjow Jaegerjaquez", tier: 2, entity: "minecraft:piglin_brute", hp: 50, res: 2, str: 3, spd: 2, score: 320, xp: 950, phases: 2, drops: [{ item: "minecraft:diamond", count: 2 }] },
+  grimmjow: { name: "Grimmjow Jaegerjaquez", tier: 2, entity: "bb:arrancar", hp: 50, res: 2, str: 3, spd: 2, score: 320, xp: 950, phases: 2, drops: [{ item: "minecraft:diamond", count: 2 }] },
 
   // ---- Late game ----
-  ulquiorra: { name: "Ulquiorra Cifer", tier: 3, entity: "minecraft:wither_skeleton", hp: 80, res: 3, str: 3, spd: 2, score: 520, xp: 1600, phases: 3, drops: [{ item: "minecraft:netherite_scrap", count: 2 }] },
-  nnoitra: { name: "Nnoitra Gilga", tier: 3, entity: "minecraft:vindicator", hp: 90, res: 3, str: 3, spd: 1, score: 500, xp: 1500, phases: 2, drops: [{ item: "minecraft:diamond", count: 5 }] },
-  barragan: { name: "Barragan Luisenbarn", tier: 3, entity: "minecraft:wither_skeleton", hp: 85, res: 3, str: 2, spd: 0, score: 540, xp: 1650, phases: 3, drops: [{ item: "minecraft:netherite_scrap", count: 1 }, { item: "minecraft:gold_block", count: 2 }] },
-  stark: { name: "Coyote Stark", tier: 3, entity: "minecraft:pillager", hp: 88, res: 3, str: 3, spd: 2, score: 560, xp: 1700, phases: 2, drops: [{ item: "minecraft:netherite_scrap", count: 2 }] },
+  ulquiorra: { name: "Ulquiorra Cifer", tier: 3, entity: "bb:arrancar", hp: 80, res: 3, str: 3, spd: 2, score: 520, xp: 1600, phases: 3, drops: [{ item: "minecraft:netherite_scrap", count: 2 }] },
+  nnoitra: { name: "Nnoitra Gilga", tier: 3, entity: "bb:arrancar", hp: 90, res: 3, str: 3, spd: 1, score: 500, xp: 1500, phases: 2, drops: [{ item: "minecraft:diamond", count: 5 }] },
+  barragan: { name: "Barragan Luisenbarn", tier: 3, entity: "bb:arrancar", hp: 85, res: 3, str: 2, spd: 0, score: 540, xp: 1650, phases: 3, drops: [{ item: "minecraft:netherite_scrap", count: 1 }, { item: "minecraft:gold_block", count: 2 }] },
+  stark: { name: "Coyote Stark", tier: 3, entity: "bb:arrancar", hp: 88, res: 3, str: 3, spd: 2, score: 560, xp: 1700, phases: 2, drops: [{ item: "minecraft:netherite_scrap", count: 2 }] },
 
   // ---- Endgame ----
   aizen: { name: "Sosuke Aizen", tier: 4, entity: "minecraft:evoker", hp: 160, res: 3, str: 4, spd: 2, score: 900, xp: 4000, phases: 4, drops: [{ item: "minecraft:netherite_ingot", count: 1 }, { item: "minecraft:nether_star", count: 1 }] },
@@ -34,7 +34,7 @@ export const BOSSES = {
 
   // ---- Story bosses (questline) ----
   zanpakuto_spirit: { name: "Zanpakuto Spirit", tier: 3, entity: "minecraft:vindicator", hp: 70, res: 2, str: 3, spd: 2, score: 500, xp: 2000, phases: 3, drops: [{ item: "minecraft:diamond", count: 4 }] },
-  inner_hollow: { name: "Inner Hollow", tier: 3, entity: "minecraft:wither_skeleton", hp: 95, res: 3, str: 4, spd: 2, score: 600, xp: 2500, phases: 3, drops: [{ item: "minecraft:netherite_scrap", count: 2 }] },
+  inner_hollow: { name: "Inner Hollow", tier: 3, entity: "bb:menos", hp: 95, res: 3, str: 4, spd: 2, score: 600, xp: 2500, phases: 3, drops: [{ item: "minecraft:netherite_scrap", count: 2 }] },
 };
 
 export const BOSS_IDS = Object.keys(BOSSES);

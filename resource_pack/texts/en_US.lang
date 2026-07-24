@@ -9,5 +9,9 @@ item.bb:hollow_mask=Hollow Mask Fragment
 
 entity.bb:npc.name=Spirit
 entity.bb:hollow_grunt.name=Hollow
+entity.bb:menos.name=Menos Grande
+entity.bb:arrancar.name=Arrancar
 item.spawn_egg.entity.bb:npc.name=Spawn Spirit (NPC)
 item.spawn_egg.entity.bb:hollow_grunt.name=Spawn Hollow
+item.spawn_egg.entity.bb:menos.name=Spawn Menos
+item.spawn_egg.entity.bb:arrancar.name=Spawn Arrancar

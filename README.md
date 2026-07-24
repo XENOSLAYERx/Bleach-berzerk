@@ -37,7 +37,7 @@ consoles and Bedrock servers. Inspired by Dragon Block C / Naruto C / Bleach.
 | **Ranked PvP** — challenge duels, arena teleport, rating & 6 ranks (Bronze→Legend) | ✅ |
 | **Endgame titles** (Soul King, Captain Commander, Strongest Espada, Quincy King…) with a selector | ✅ |
 | **Schrift signature passives** per letter (Quincy) | ✅ |
-| **Custom entities** — walk-up NPCs (mentors + squad captains), a custom Hollow, and a giant scaled **Menos**, with hand-authored geometry, textures & spawn eggs | ✅ |
+| **Custom entities** — walk-up NPCs (mentors + squad captains), a custom Hollow, a giant **Menos**, and an **Arrancar** boss model (used by 5 Espada), with hand-authored geometry, textures & spawn eggs | ✅ |
 | **Entity animations** — shared idle/walk animation + controller drive all custom entities | ✅ |
 | **Walk-up NPC interaction** — tap a captain to enlist / open missions; mentors open quests/missions/training | ✅ |
 | **Hollow spawn rules** — custom Hollows spawn at night | ✅ |
@@ -177,9 +177,10 @@ Every system in the design is implemented and the custom-entity pipeline is now
 proven (geometry → texture → client entity → behavior → spawn/interaction). The
 remaining work is incremental art & content that plugs into what's already here:
 - **Per-boss custom models** — the shared, animated `bb_humanoid` geometry drives
-  NPCs, Hollows and the Menos today; the 18 named **bosses** still reskin vanilla
-  mobs. Giving each a unique `.geo.json` follows the exact pattern already in
-  `resource_pack/models/entity` + `resource_pack/entity` + `resource_pack/animations`.
+  NPCs, Hollows, the Menos and the **Espada** (5 bosses render as the custom
+  Arrancar; the Inner Hollow renders as the Menos). The remaining named bosses
+  still reskin vanilla mobs; giving each its own `.geo.json` follows the exact
+  pattern in `resource_pack/models/entity` + `entity` + `animations`.
 - **Detailed hand-built zones** — the travel hub auto-builds lit landmark arenas
   and populates them with NPCs; swapping in structure-file cities is pure content.
 - **Even more Schrift depth** — 7 letters have reactive mechanics today; the other

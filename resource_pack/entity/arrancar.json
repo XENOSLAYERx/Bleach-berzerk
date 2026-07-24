@@ -1,0 +1,19 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "bb:arrancar",
+      "materials": { "default": "entity_alphatest" },
+      "textures": { "default": "textures/entity/bb_arrancar" },
+      "geometry": { "default": "geometry.bb_humanoid" },
+      "animations": {
+        "idle": "animation.bb_humanoid.idle",
+        "walk": "animation.bb_humanoid.walk",
+        "move": "controller.animation.bb_humanoid.move"
+      },
+      "scripts": { "animate": ["move"] },
+      "render_controllers": ["controller.render.default"],
+      "spawn_egg": { "base_color": "#f0f0f0", "overlay_color": "#202028" }
+    }
+  }
+}
