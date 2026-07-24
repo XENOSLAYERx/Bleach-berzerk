@@ -27,6 +27,12 @@ import { flightTick, stopFlight, fliers } from "./systems/flight.js";
 import { bossTick, onEntityDie } from "./systems/bossManager.js";
 import { maybeTriggerEvent } from "./systems/worldEvents.js";
 import { addSouls } from "./systems/hollowEvolution.js";
+import { applySquadBuff, getSquad } from "./systems/squads.js";
+import { onProgress as missionProgress } from "./systems/missions.js";
+import { check as questCheck, onBoss as questOnBoss } from "./systems/quests.js";
+import { checkTitles, getActiveTitle } from "./systems/titles.js";
+import { applyPassive as schriftPassive } from "./systems/schriftPassive.js";
+import { onDeath as pvpOnDeath, clearDuel } from "./systems/pvp.js";
 
 // ui
 import { openRaceSelect } from "./ui/raceSelect.js";
@@ -86,16 +92,27 @@ world.afterEvents.entityDie.subscribe((ev) => {
   const dead = ev.deadEntity;
   const src = ev.damageSource;
   const killer = src && src.damagingEntity;
+
+  // Resolve ranked duels on any player death.
+  if (dead.typeId === "minecraft:player") {
+    const wasDuel = pvpOnDeath(dead);
+    if (wasDuel && killer && killer.typeId === "minecraft:player") {
+      missionProgress(killer, "pvp");
+    }
+  }
+
   if (!killer || killer.typeId !== "minecraft:player") return;
 
-  // Boss death handles its own XP + drops.
-  const wasBoss = onEntityDie(dead, killer);
-
-  if (dead.typeId === "minecraft:player") {
-    // PvP kill
+  // Boss death handles its own XP + drops and returns the boss id.
+  const bossId = onEntityDie(dead, killer);
+  if (bossId) {
+    questOnBoss(killer, bossId);
+    missionProgress(killer, "boss", bossId);
+  } else if (dead.typeId === "minecraft:player") {
     gainXp(killer, XP.pvpWin, "pvp");
-  } else if (!wasBoss) {
+  } else {
     gainXp(killer, XP.hollowKill(1), "kill");
+    missionProgress(killer, "kill");
   }
 
   // Hollows eat souls.
@@ -111,6 +128,7 @@ world.afterEvents.entityDie.subscribe((ev) => {
 world.afterEvents.playerLeave.subscribe((ev) => {
   clearCooldowns(ev.playerId);
   stopFlight(ev.playerId);
+  clearDuel(ev.playerId);
 });
 
 // ---------------------------------------------------------------------
@@ -124,9 +142,13 @@ system.runInterval(() => {
     const rank = getRank(p);
     const form = getForm(p);
     const formTxt = form && form !== "none" ? ` §7| §c${form.toUpperCase()}` : "";
+    const at = getActiveTitle(p);
+    const titleTxt = at ? `§6[${at}] ` : "";
+    const sq = getSquad(p);
+    const sqTxt = sq ? ` §7| §2Sq.${sq}` : "";
     actionBar(
       p,
-      `§9Reiatsu §f${getReiatsu(p)}§7/§f${getMaxReiatsu(p)}  §8|  §eLv §f${getLevel(p)}  §8|  §d${rank.name}${formTxt}`
+      `${titleTxt}§9Reiatsu §f${getReiatsu(p)}§7/§f${getMaxReiatsu(p)}  §8|  §eLv §f${getLevel(p)}  §8|  §d${rank.name}${formTxt}${sqTxt}`
     );
   }
 }, TICK.hud);
@@ -141,6 +163,11 @@ system.runInterval(() => {
   for (const p of world.getAllPlayers()) {
     if (!isCreated(p)) continue;
     checkUnlocks(p);
+    questCheck(p);
+    checkTitles(p);
+    applySquadBuff(p);
+    schriftPassive(p);
+    missionProgress(p, "level");
     if (getForm(p) !== "none") applyFormBuffs(p);
     passiveAura(p);
   }

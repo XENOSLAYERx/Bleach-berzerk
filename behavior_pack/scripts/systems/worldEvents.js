@@ -8,6 +8,7 @@ import { system, world } from "@minecraft/server";
 import { pick, actionBar, title, entitiesNear, players } from "../util.js";
 import { spawnBoss } from "./bossManager.js";
 import { gainXp, XP } from "./leveling.js";
+import { onProgress } from "./missions.js";
 
 const MOB_CAP = 24; // never keep more than this many event mobs alive at once
 
@@ -71,6 +72,7 @@ export function triggerEvent(eventId, targetPlayer) {
         world.sendMessage(`§a§l[EVENT] §r${ev.name} cleared!`);
         for (const p of entitiesNear(dim, base, 60, null).filter((e) => e.typeId === "minecraft:player")) {
           gainXp(p, ev.xp, "event");
+          onProgress(p, "event");
           title(p, "§aEvent Complete", `§e+${ev.xp} XP`);
         }
       }
@@ -187,6 +189,7 @@ function finishRaid(dim, anchor, raid, raidId) {
   world.sendMessage(`§a§l[RAID] §r${raid.name} complete! Rewards distributed.`);
   for (const p of entitiesNear(dim, anchor, 100, null).filter((e) => e.typeId === "minecraft:player")) {
     gainXp(p, raid.reward, "raid");
+    onProgress(p, "raid");
     title(p, "§6RAID CLEARED", `§e+${raid.reward} XP`);
   }
 }

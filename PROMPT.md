@@ -59,7 +59,10 @@ Script API), *not* a Java Forge/Fabric mod.
 3. ✅ Full element/Schrift/Hollow/Fullbring data tables (460+ abilities).
 4. ✅ Bosses + dynamic events.
 5. ✅ Raids + progression gates.
-6. ⏳ Custom models, built world zones, NPC questlines, squad missions, ranked
-   PvP board — all slot into existing data tables.
+6. ✅ Gotei 13 squads + factions, mission board, race questlines (with story
+   bosses), world-travel hub with buildable zones, ranked PvP duels, endgame
+   titles, Schrift passives.
+7. ⏳ Remaining: custom entity models/animations, walk-up NPC entities, and
+   detailed hand-built zones — art/content that slots into the existing engine.
 
 See `README.md` for install & commands.

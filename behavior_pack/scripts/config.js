@@ -56,6 +56,18 @@ export const PK = {
   zanQuest: "bb:zanquest",
   innerHollow: "bb:innerhollow",
   quincyTrials: "bb:qtrials",
+  // squads / factions / missions / quests / titles
+  faction: "bb:faction",
+  mission: "bb:mission",
+  missionProg: "bb:mprog",
+  quest: "bb:quest",
+  questStep: "bb:qstep",
+  activeTitle: "bb:title",
+};
+
+// World-scoped dynamic property keys (stored on `world`).
+export const WK = {
+  zonesBuilt: "bb:zonesBuilt", // JSON array of zone ids already constructed
 };
 
 // ---- Races -----------------------------------------------------------

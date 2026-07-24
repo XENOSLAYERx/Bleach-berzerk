@@ -122,7 +122,7 @@ export function onEntityDie(deadEntity, killer) {
     gainXp(p, def.xp, "boss");
     title(p, "§6Boss Defeated", `§e+${def.xp} XP`);
   }
-  return true;
+  return b.id; // the defeated boss id (falsy-safe: null when not a boss)
 }
 
 export function activeBossCount() {

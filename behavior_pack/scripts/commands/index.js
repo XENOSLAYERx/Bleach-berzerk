@@ -17,6 +17,9 @@ import { spawnBoss } from "../systems/bossManager.js";
 import { BOSS_IDS } from "../data/bosses.js";
 import { triggerEvent, startRaid, EVENT_IDS, RAID_IDS } from "../systems/worldEvents.js";
 import { getLevel } from "../data/profile.js";
+import { challenge } from "../systems/pvp.js";
+import { travelTo, ZONE_IDS } from "../systems/travel.js";
+import { getCurrent as getQuestState } from "../systems/quests.js";
 
 export function registerCommands() {
   world.beforeEvents.chatSend.subscribe((ev) => {
@@ -58,6 +61,43 @@ function handle(player, args) {
     case "help":
       help(player);
       return;
+    case "duel": {
+      const name = args.slice(1).join(" ");
+      const target = world.getAllPlayers().find((p) => p.name === name && p.id !== player.id);
+      if (!target) {
+        player.sendMessage(`§7Usage: !bb duel <player name>. Online: §f${world.getAllPlayers().map((p) => p.name).join(", ")}`);
+        return;
+      }
+      challenge(player, target);
+      return;
+    }
+    case "travel": {
+      const zone = args[1];
+      if (!ZONE_IDS.includes(zone)) {
+        player.sendMessage(`§7Zones: §f${ZONE_IDS.join(", ")}`);
+        return;
+      }
+      travelTo(player, zone);
+      return;
+    }
+    case "quest": {
+      // "!bb quest boss" summons the current questline's boss (story progress).
+      if ((args[1] || "").toLowerCase() === "boss") {
+        const q = getQuestState(player);
+        if (q.done || !q.step || q.step.obj.kind !== "boss") {
+          player.sendMessage("§7Your current quest step isn't a boss fight.");
+          return;
+        }
+        const d = player.getViewDirection();
+        const l = player.location;
+        spawnBoss(player.dimension, { x: l.x + d.x * 6, y: l.y, z: l.z + d.z * 6 }, q.step.obj.boss);
+      } else {
+        const q = getQuestState(player);
+        if (q.done) player.sendMessage("§aQuestline complete!");
+        else player.sendMessage(`§6Quest ${q.idx + 1}/${q.total}: §f${q.step.name} §7— ${q.step.desc}`);
+      }
+      return;
+    }
 
     // ---- admin / debug ----
     case "unlock": {
@@ -129,7 +169,10 @@ function admin(player) {
 function help(player) {
   player.sendMessage(
     "§d§lBleach: Berzerk §r§7commands:\n" +
-    "§f!bb menu §7- open your abilities\n" +
+    "§f!bb menu §7- open your abilities & all systems\n" +
+    "§f!bb quest §7- show your current quest ( §f!bb quest boss §7summons its boss)\n" +
+    "§f!bb travel <zone> §7- fast-travel\n" +
+    "§f!bb duel <player> §7- challenge to a ranked duel\n" +
     "§f!bb reroll §7- re-pick your race\n" +
     "§f!bb help §7- this help\n" +
     "§8Admin (need tag bb_admin): unlock, boss, event, raid, setlevel, addxp"

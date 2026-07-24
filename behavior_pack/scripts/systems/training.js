@@ -9,6 +9,7 @@ import { PK } from "../config.js";
 import { setProp, getProp, actionBar, title, sound, particle, dist } from "../util.js";
 import { addStat } from "../data/profile.js";
 import { gainXp, XP } from "./leveling.js";
+import { onProgress } from "./missions.js";
 
 // activity id -> { name, stat, seconds }
 export const ACTIVITIES = {
@@ -64,6 +65,7 @@ function finishTraining(player, act) {
   addStat(player, act.stat, 1);
   gainXp(player, XP.training, "training");
   if (act.flag) setProp(player, act.flag, true);
+  onProgress(player, "train");
   title(player, "§aTraining Complete", `§7+1 mastery • +${XP.training} XP`);
   sound(player, "random.levelup", 1.2, 0.7);
 }

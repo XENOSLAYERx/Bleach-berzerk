@@ -101,6 +101,15 @@ export function actionBar(player, text) {
   }
 }
 
+/** Safe chat message to a single player. */
+export function tell(player, text) {
+  try {
+    player.sendMessage(text);
+  } catch (e) {
+    /* player leaving / not ready */
+  }
+}
+
 /** Big title + subtitle. */
 export function title(player, text, subtitle) {
   try {

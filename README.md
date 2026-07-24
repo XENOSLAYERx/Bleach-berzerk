@@ -30,7 +30,14 @@ consoles and Bedrock servers. Inspired by Dragon Block C / Naruto C / Bleach.
 | 18 bosses across 4 tiers, multi-phase, scripted attacks, unique drops | ✅ |
 | Dynamic world events (Hollow Invasion, Menos Attack, Espada Assault, Aizen/Yhwach…) | ✅ |
 | Raids (Hueco Mundo 50-wave, Espada gauntlet, Soul Society War, Thousand-Year Blood War) | ✅ |
-| Touch menu: cast, loadout, transform, stats, training, flight, profile | ✅ |
+| **Gotei 13 squads** (1–13) with captains, passive buffs & reputation; race factions | ✅ |
+| **Mission board** — 12 missions (kill/boss/train/pvp/event/raid/level) with XP + rep | ✅ |
+| **Race questlines** that unlock transformations (incl. Zanpakutō-Spirit & Inner-Hollow story bosses); Human evolution | ✅ |
+| **World travel hub** (Senkaimon) — Karakura, Seireitei, Hueco Mundo, Wandenreich, Arena; landmarks auto-built on first visit | ✅ |
+| **Ranked PvP** — challenge duels, arena teleport, rating & 6 ranks (Bronze→Legend) | ✅ |
+| **Endgame titles** (Soul King, Captain Commander, Strongest Espada, Quincy King…) with a selector | ✅ |
+| **Schrift signature passives** per letter (Quincy) | ✅ |
+| Touch menu: cast, loadout, transform, stats, training, flight, squad, missions, quests, travel, PvP, titles, profile | ✅ |
 
 **Design intent:** the engine is data-driven, so extending it is *filling in
 data tables* (more Schrift specifics, per-squad missions, custom models/zones)
@@ -83,9 +90,12 @@ content-log), then rebuild. No code changes needed.
 
 ### Commands
 ```
-!bb menu        open your ability menu
-!bb reroll      re-pick your race
-!bb help        list commands
+!bb menu            open your ability menu (all systems live here)
+!bb quest           show your current quest ( !bb quest boss summons its boss)
+!bb travel <zone>   fast-travel (karakura, soul_society, hueco_mundo, wandenreich, arena)
+!bb duel <player>   challenge a player to a ranked duel
+!bb reroll          re-pick your race
+!bb help            list commands
 ```
 Admin/debug (first run `/tag @s add bb_admin`):
 ```
@@ -110,12 +120,15 @@ behavior_pack/
     config.js            all tuning constants & dynamic-property keys
     util.js              version-tolerant API helpers
     data/                profile, elements, zanpakuto, schrift, hollow,
-                         fullbring, bosses, baseAbilities
+                         fullbring, bosses, baseAbilities, squads, missions
     systems/             abilities engine, combat, reiatsu, leveling,
                          raceManager, transformations, progression,
                          pressure, flight, training, hollowEvolution,
-                         bossManager, worldEvents (events + raids)
-    ui/                  raceSelect, menu, forms
+                         bossManager, worldEvents (events + raids),
+                         squads, missions, quests, travel (zones),
+                         pvp, titles, schriftPassive
+    ui/                  raceSelect, menu (+ squad/mission/quest/travel/
+                         pvp/title screens), forms
     commands/            chat + scriptevent command interface
 resource_pack/
   manifest.json
@@ -131,7 +144,9 @@ tools/
 
 ```bash
 python3 tools/gen_textures.py     # (re)build textures
-node tools/selftest.mjs           # verify all abilities resolve (uses local stubs)
+node tools/importtest.mjs         # every module imports cleanly (uses local stubs)
+node tools/selftest.mjs           # all 460 abilities resolve for every race/form
+node tools/systest.mjs            # squad / mission / quest / title flows
 python3 tools/build.py            # package the .mcaddon
 ```
 `node tools/selftest.mjs` uses tiny stub `@minecraft/*` modules under
@@ -145,15 +160,20 @@ Zanpakutō element is one row in `data/elements.js`; a new boss is one row in
 
 ---
 
-## Roadmap (data-only expansions the engine already supports)
-- Custom entity models/animations for bosses & Resurrección forms (currently
-  reskinned vanilla mobs for out-of-the-box compatibility).
-- Built world zones (Karakura, Seireitei, Hueco Mundo, Wandenreich) as
-  structures/a custom dimension, with NPC questlines replacing the level-gated
-  unlocks.
-- Per-squad (1–13) missions, buffs and reputation UI.
-- Ranked PvP arena matchmaking & titles board.
-- Fleshed-out per-letter Schrift signature mechanics.
+## Roadmap (remaining work)
+The gameplay systems from the design are all in. What's left is mostly **art
+and hand-authored world-building**, which the data-driven engine is ready for:
+- **Custom entity models/animations** for bosses & Resurrección forms (they
+  currently reskin vanilla mobs so the pack works out of the box). This needs
+  `.geo.json` geometry + animations + a Resource-Pack client-entity per model.
+- **Quest-giver / captain NPC entities** you can walk up to (the questlines,
+  squads, missions and travel all work today through the menu; NPCs would be a
+  flavor layer on top).
+- **Hand-built world zones** — the travel hub auto-builds simple landmark
+  arenas; replacing them with detailed Karakura/Seireitei/Hueco Mundo/
+  Wandenreich builds (structure files) is a pure content task.
+- More **per-letter Schrift signature mechanics** beyond the passive buffs
+  (e.g. The Almighty's foresight, The Miracle's comeback) as special-case handlers.
 
 ---
 

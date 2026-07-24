@@ -31,6 +31,10 @@ export const BOSSES = {
   ichigo: { name: "Ichigo Kurosaki", tier: 4, entity: "minecraft:vindicator", hp: 140, res: 3, str: 4, spd: 3, score: 920, xp: 4100, phases: 4, drops: [{ item: "minecraft:netherite_ingot", count: 1 }, { item: "minecraft:nether_star", count: 1 }] },
   yhwach: { name: "Yhwach", tier: 4, entity: "minecraft:evoker", hp: 200, res: 4, str: 5, spd: 2, score: 1100, xp: 5000, phases: 5, drops: [{ item: "minecraft:netherite_ingot", count: 2 }, { item: "minecraft:nether_star", count: 2 }] },
   soul_king_guardian: { name: "Soul King Guardian", tier: 4, entity: "minecraft:ravager", hp: 220, res: 4, str: 5, spd: 1, score: 1200, xp: 5500, phases: 4, drops: [{ item: "minecraft:netherite_ingot", count: 3 }, { item: "minecraft:nether_star", count: 3 }] },
+
+  // ---- Story bosses (questline) ----
+  zanpakuto_spirit: { name: "Zanpakuto Spirit", tier: 3, entity: "minecraft:vindicator", hp: 70, res: 2, str: 3, spd: 2, score: 500, xp: 2000, phases: 3, drops: [{ item: "minecraft:diamond", count: 4 }] },
+  inner_hollow: { name: "Inner Hollow", tier: 3, entity: "minecraft:wither_skeleton", hp: 95, res: 3, str: 4, spd: 2, score: 600, xp: 2500, phases: 3, drops: [{ item: "minecraft:netherite_scrap", count: 2 }] },
 };
 
 export const BOSS_IDS = Object.keys(BOSSES);
