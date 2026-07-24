@@ -1,0 +1,11 @@
+{
+  "resource_pack_name": "bleach_berzerk",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "bb_spirit_focus": { "textures": "textures/items/spirit_focus" },
+    "bb_asauchi": { "textures": "textures/items/asauchi" },
+    "bb_quincy_cross": { "textures": "textures/items/quincy_cross" },
+    "bb_fullbring_object": { "textures": "textures/items/fullbring_object" },
+    "bb_hollow_mask": { "textures": "textures/items/hollow_mask" }
+  }
+}

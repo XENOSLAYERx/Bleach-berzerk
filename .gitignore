@@ -1,0 +1,10 @@
+# Node stubs used only for offline self-testing
+/node_modules/
+
+# Build output
+/dist/
+
+# Scratch
+*.log
+err.txt
+jerr.txt

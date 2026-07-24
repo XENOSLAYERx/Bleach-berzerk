@@ -1,0 +1,17 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "bb:spirit_focus",
+      "menu_category": { "category": "equipment" }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": "bb_spirit_focus",
+      "minecraft:display_name": { "value": "Spirit Focus" },
+      "minecraft:hand_equipped": true,
+      "minecraft:glint": true,
+      "minecraft:use_modifiers": { "use_duration": 0, "movement_modifier": 1 }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "§bBleach: Berzerk §7[Behavior]",
+    "description": "A deep Bleach RPG for Minecraft Bedrock (mobile). Races, Reiatsu, Zanpakuto, transformations, bosses & more.",
+    "uuid": "36874679-6c44-42d5-b6c1-7d79c7db4aaf",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 0]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "becf469c-8ced-47ea-bbda-7a2d9e44784a",
+      "version": [1, 0, 0]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "ef4268c3-db51-4549-a136-0cfb54287de8",
+      "version": [1, 0, 0],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "1.2.0"
+    },
+    {
+      "uuid": "78e7f964-d8a4-48c4-a340-53f922dfdec7",
+      "version": [1, 0, 0]
+    }
+  ]
+}

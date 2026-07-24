@@ -1,0 +1,17 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "§bBleach: Berzerk §7[Resources]",
+    "description": "Textures, item names and UI text for Bleach: Berzerk.",
+    "uuid": "78e7f964-d8a4-48c4-a340-53f922dfdec7",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 0]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "c53f09a9-adf8-4a49-adde-65bf4e6f19e1",
+      "version": [1, 0, 0]
+    }
+  ]
+}
